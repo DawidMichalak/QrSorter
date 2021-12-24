@@ -3,12 +3,9 @@ from pyzbar.pyzbar import decode, ZBarSymbol
 import cv2
 
 def findQR(im) :
-  decodedObjects = decode(im, symbols=[ZBarSymbol.QRCODE])
+    decodedObjects = decode(im, symbols=[ZBarSymbol.QRCODE])
 
-  for obj in decodedObjects:
-    print('Data : ', obj.data,'\n')
-
-  return decodedObjects
+    return decodedObjects
 
 def drawQR(image, decodedObjects):
         for decodedObject in decodedObjects:
