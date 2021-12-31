@@ -40,6 +40,11 @@ class Stepper():
             self.setStep(i % len(self.sequence))
             time.sleep(delay)
         
+    def backward(self, delay, steps):
+        for i in range(0, steps):
+            self.setStep(( - i % len(self.sequence)))
+            time.sleep(delay)
+        
     def setStep(self, seq):
         for i, p in enumerate(pins):
             p.value = self.sequence[seq][i]
@@ -48,8 +53,11 @@ class Stepper():
 if __name__ == "__main__":
     step = Stepper(halfStepSequence)
     while True:
-        user_delay = input("Delay(milliseconds): ")
-        user_steps = input("Steps: ")
-        step.forward(int(user_delay) / 1000.0, int(user_steps))
+        delay = input("Delay(milliseconds): ")
+        steps = input("Steps: ")
+        step.forward(int(delay) / 1000.0, int(steps))
+        delay = input("Delay(milliseconds): ")
+        steps = input("Steps: ")
+        step.backward(int(delay) / 1000.0, int(steps))
 
 
