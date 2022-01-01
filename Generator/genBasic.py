@@ -1,15 +1,18 @@
 import qrcode
+import os
   
-for i in range(4):
-    data = i
-    qr = qrcode.QRCode(version = 1,
-                    box_size = 10,
-                    border = 5,
-                    error_correction = qrcode.constants.ERROR_CORRECT_Q)
+class QrCodeGenerator:
+    def __init__(self):
+        self.path = os.path.dirname(os.path.abspath(__file__)) 
+        self.path += '\\Generator\\Codes\\'
 
-    qr.add_data(data)
-    
-    qr.make(fit = True)
-    img = qr.make_image()
-    
-    img.save( str(i) + '.png')
+    def addQrCode(self, data):
+        qr = qrcode.QRCode(version = 1,
+                box_size = 10,
+                border = 5,
+                error_correction = qrcode.constants.ERROR_CORRECT_Q)
+
+        qr.add_data(data)
+        qr.make(fit = True)
+        img = qr.make_image()
+        img.save(self.path + str(i) + '.png')
