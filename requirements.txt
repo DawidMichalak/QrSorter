@@ -1,3 +1,7 @@
+Adafruit_Blinka==6.17.0
+adafruit_circuitpython_motor==3.3.4
+board==1.0
 numpy==1.21.2
+opencv_python==4.5.4.60
 pyzbar==0.1.8
 qrcode==7.3.1
