@@ -15,4 +15,4 @@ class QrCodeGenerator:
         qr.add_data(data)
         qr.make(fit = True)
         img = qr.make_image()
-        img.save(self.path + str(i) + '.png')
+        img.save(self.path + str(data) + '.png')
