@@ -20,7 +20,7 @@ class Database:
     def createTable(self):
         sql = '''create table if not exists Categories(
                 id integer primary key,
-                category text not null,
+                categoryName text not null,
                 numberOfProducts integer not null,
                 boxId integer not null,                
                 unique(category)
