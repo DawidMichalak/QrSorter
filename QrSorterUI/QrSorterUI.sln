@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QrSorterUI", "QrSorterUI\QrSorterUI.csproj", "{D679FE0A-2A88-4ACE-B228-06315CDF36F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{BFE46464-D279-4D3E-BB46-F7A60AA72B12}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D679FE0A-2A88-4ACE-B228-06315CDF36F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D679FE0A-2A88-4ACE-B228-06315CDF36F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D679FE0A-2A88-4ACE-B228-06315CDF36F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D679FE0A-2A88-4ACE-B228-06315CDF36F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFE46464-D279-4D3E-BB46-F7A60AA72B12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFE46464-D279-4D3E-BB46-F7A60AA72B12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFE46464-D279-4D3E-BB46-F7A60AA72B12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFE46464-D279-4D3E-BB46-F7A60AA72B12}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {23BF7290-9196-4F8E-89CA-98860FCAAD67}
+	EndGlobalSection
+EndGlobal
