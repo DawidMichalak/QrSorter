@@ -5,7 +5,7 @@ from sqlite3 import Error
 class Database:
     def __init__(self):
         self.dbFile = os.path.dirname(os.path.abspath(__file__)) 
-        self.dbFile += '\\sqlite\\db\\Database'
+        self.dbFile += '\\\QrSorterUI\\DataAccess\\Database.db'
         self.createTable()
 
     def createConnection(self):
@@ -23,7 +23,7 @@ class Database:
                 categoryName text not null,
                 numberOfProducts integer not null,
                 boxId integer not null,                
-                unique(category)
+                unique(categoryName)
             );'''
         connection = self.createConnection()
         
@@ -37,7 +37,7 @@ class Database:
                 connection.close()
 
     def addCategory(self, category, numberOfProducts, boxId):
-        sql = '''insert into Categories(category, numberOfProducts, boxId)
+        sql = '''insert into Categories(categoryName, numberOfProducts, boxId)
             values(?, ?, ?)'''
         connection = self.createConnection()
 
@@ -68,7 +68,7 @@ class Database:
         return rows
 
     def getBoxByCategory(self, category):
-        sql = 'select boxId from Categories where category = ?'
+        sql = 'select boxId from Categories where categoryName = ?'
         connection = self.createConnection()
 
         try:
@@ -85,7 +85,7 @@ class Database:
 
     def updateCategory(self, id, category, numberOfProducts, boxId):
         sql = '''update Categories
-                set category = ?
+                set categoryName = ?
                     numberOfProducts = ?
                     boxId = ?
                     where id = ?'''
