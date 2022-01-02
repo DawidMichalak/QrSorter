@@ -23,6 +23,18 @@ namespace QrSorterUI.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            var categories = await GetCategories();
+            return View(categories);
+        }
+
+        public async Task<IActionResult> GetPartialView()
+        {
+            var categories = await GetCategories();
+            return PartialView("CategoryList", categories);
+        }
+
+        private async Task<List<CategoryViewModel>> GetCategories()
+        {
             var entries = await _dataAccess.Get();
             var categories = new List<CategoryViewModel>();
 
@@ -32,8 +44,8 @@ namespace QrSorterUI.Controllers
                 var last = categories[categories.Count - 1].CategoryName.ToLower();
                 categories[categories.Count - 1].CategoryName = last[0].ToString().ToUpper() + last.Substring(1);
             }
-                
-            return View(categories);
+
+            return categories;
         }
     }
 }
