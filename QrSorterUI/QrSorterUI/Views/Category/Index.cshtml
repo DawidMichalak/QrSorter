@@ -1,0 +1,41 @@
+﻿@model IEnumerable<QrSorterUI.Models.CategoryViewModel>
+
+@{
+    ViewData["Title"] = "QrSorter";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ul class="list-group">
+    <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <strong>@Html.DisplayNameFor(model => model.CategoryName)</strong>
+                </div>
+                <div class="col">
+                    <strong>@Html.DisplayNameFor(model => model.BoxId)</strong>
+                </div>
+                <div class="col-2">
+                    <strong>@Html.DisplayNameFor(model => model.NumberOfProducts)</strong>
+                </div>
+            </div>
+        </div>
+    </li>
+@foreach(var item in Model) {
+    <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    @item.CategoryName
+                </div>
+                <div class="col">
+                    @item.BoxId
+                </div>
+                <div class="col-2">
+                    <span class="badge badge-primary badge-pill">@item.NumberOfProducts</span>
+                </div>
+            </div>
+        </div>
+    </li>
+}
+</ul>
