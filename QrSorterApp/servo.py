@@ -2,14 +2,18 @@ import RPi.GPIO as GPIO
 import time
 import numpy
 
-#Servo(19, True)
-#Servo(26, False)
+#Servo(19, True) - left servo
+#Servo(26, False) - right servo
 class Servo:    
-    def __init__(self, servoPin, flip=False):
+    def __init__(self, servoPin, boxId, flip=False):
         self.servoPin = servoPin
         self.openPosition = 90
         self.closePosition = 0
         self.rezolution = 50
+        self.boxId = boxId
+   
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(self.servoPin, GPIO.OUT)
    
         if flip:
             self.openPosition = 0
@@ -25,9 +29,6 @@ class Servo:
         self.move(self.openPosition)
         
     def move(self, newPosition):
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(self.servoPin, GPIO.OUT)
-        
         pwm = GPIO.PWM(self.servoPin, self.rezolution)   
         pwm.start(self.position)
         angle = numpy.linspace(self.position, newPosition, self.rezolution)
@@ -39,3 +40,10 @@ class Servo:
             
         self.position = newPosition
         pwm.stop(newPosition)
+        
+if __name__ == "__main__":
+    servoRight = Servo(26, 2, False)
+    servoRight.close()
+    time.sleep(1)
+    servoRight.open()
+    GPIO.cleanup()

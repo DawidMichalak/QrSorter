@@ -1,5 +1,4 @@
 import sqlite3
-import os
 from sqlite3 import Error
 
 class Database:
