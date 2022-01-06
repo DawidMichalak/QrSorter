@@ -4,8 +4,7 @@ from sqlite3 import Error
 
 class Database:
     def __init__(self):
-        self.dbFile = os.path.dirname(os.path.abspath(__file__)) 
-        self.dbFile += '\\\QrSorterUI\\DataAccess\\Database.db'
+        self.dbFile = '/home/pi/Desktop/Database.db'
         self.createTable()
 
     def createConnection(self):
