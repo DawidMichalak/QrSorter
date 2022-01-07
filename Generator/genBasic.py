@@ -4,7 +4,7 @@ import os
 class QrCodeGenerator:
     def __init__(self):
         self.path = os.path.dirname(os.path.abspath(__file__)) 
-        self.path += '\\Generator\\Codes\\'
+        self.path += '\\Codes\\'
 
     def addQrCode(self, data):
         qr = qrcode.QRCode(version = 1,
@@ -16,3 +16,9 @@ class QrCodeGenerator:
         qr.make(fit = True)
         img = qr.make_image()
         img.save(self.path + str(data) + '.png')
+    
+if __name__ == "__main__":
+    generator = QrCodeGenerator()
+    generator.addQrCode('tools')
+    generator.addQrCode('clothes')
+    generator.addQrCode('games')

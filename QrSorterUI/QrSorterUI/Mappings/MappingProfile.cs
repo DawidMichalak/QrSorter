@@ -2,7 +2,7 @@
 using DataAccess.Models;
 using QrSorterUI.Models;
 
-namespace VetClinic.Mappings
+namespace QrSorterUI.Mappings
 {
     public class MappingProfile : Profile
     {
