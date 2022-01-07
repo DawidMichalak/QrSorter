@@ -1,6 +1,6 @@
 import numpy as np
-from pyzbar.pyzbar import decode, ZBarSymbol
 import cv2
+from pyzbar.pyzbar import decode, ZBarSymbol
 
 def findQRData(image) :
     #return first found qr code
