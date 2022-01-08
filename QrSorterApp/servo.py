@@ -34,7 +34,7 @@ class Servo:
         angle = numpy.linspace(self.position, newPosition, self.rezolution)
         
         for a in angle:
-            duty = a / 18 + 2
+            duty = a / 18 + 3
             pwm.ChangeDutyCycle(duty)
             time.sleep(1/self.rezolution)
             
