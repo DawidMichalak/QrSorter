@@ -20,7 +20,6 @@ torqueSequence = [
     ( GPIO.LOW, GPIO.HIGH, GPIO.HIGH,  GPIO.LOW)]
 
 class Stepper():
-    
     sequence = []
 
     def __init__(self, seq):
