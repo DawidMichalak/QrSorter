@@ -1,41 +1,70 @@
-from gpiozero import LightSensor
-from sorter import *
+from time import sleep
 import stepper as Step
 import RPi.GPIO as GPIO
-from multiprocessing import Process, Lock
+import threading
+from gpiozero import LightSensor, exc
+from sorter import Sorter
+from camera import Camera
+from multiprocessing import Process, Lock, Pipe
 
-beltDelay = 0.003
-
-if __name__ == "__main__":
+if __name__ == '__main__': 
     GPIO.setmode(GPIO.BCM)
-    sensor = LightSensor(23)
-    sorter = Sorter()
-    result = False
-
+    beltDelay = 0.003
+    sensor = LightSensor(23, threshold=0.1)
+    camera = Camera()
+    sorter = Sorter(camera)
     stepper = Step.Stepper(Step.halfStepSequence)
-    beltLock = Lock()
-    beltProcess = Process(target=stepper.moveAsync, args=(beltDelay, beltLock))
+    result = True
+    stopCameraThread = False
 
-    try:
-        beltProcess.start()
-        while True:
-            print("waiting for dark")
+    beltLock = Lock()
+    cameraLock = threading.Lock()
+
+    beltProcess = Process(target=stepper.moveAsync, args=(beltDelay, beltLock))
+    flushCameraThread = threading.Thread(target=camera.flushCamera, args=(cameraLock, lambda: stopCameraThread))
+    
+    beltProcess.start()
+    flushCameraThread.start()
+
+    while True:
+        try:
+            print('Waiting for dark')
             sensor.wait_for_dark() 
-            print("stopping the belt")
-            beltLock.acquire() 
+            print('It is dark')
+            if result == True:
+                print('Acquiring camera')
+                cameraLock.acquire()
+            print('Stopping the belt')
+            beltLock.acquire()
+
             result = sorter.sort()
             if result != False:
-                print("QR Detected")
-                print("Starting manual move")
-                stepper.move(beltDelay, 6000)
-                print("Opening servo")
-                sorter.close()
-            print("Releasing the belt")
-            beltLock.release()
+                print('QR Detected')
+                print('Starting manual move')
+                stepper.move(beltDelay, 6500)
+                print('Opening servo')
+                sorter.open()
+                print('Releasing camera')
+                cameraLock.release()
 
-    finally:
-        if beltProcess.is_alive():
-            beltProcess.terminate()
-            beltProcess.close()
-        GPIO.cleanup()
-        cv2.destroyAllWindows()
+            print('Releasing the belt')
+            beltLock.release()
+        except:
+            print('Preparing to close...')
+            break
+
+    print('Closing processes...')
+    if beltProcess.is_alive():
+        beltProcess.terminate()
+        beltProcess.join()
+        beltProcess.close()
+
+    try:
+        cameraLock.release()
+    except:
+        pass
+
+    stopCameraThread = True
+    flushCameraThread.join()
+
+    print('All processes and threads closed')
