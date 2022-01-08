@@ -9,6 +9,7 @@ class Sorter:
         self.servos = [servoLeft, servoRight]
         self.cam = cam
         self.db = Database()
+        self.db.resetCategoriesCounters()
         self.categories = self.db.getCategories()
         self.closed = False
         self.servoToOpen = None
@@ -33,6 +34,7 @@ class Sorter:
                             servo.close()
                             self.closed = True
                             self.servoToOpen = servo
+                            self.db.updateCategory(c[0], c[1], c[2] + 1, c[3])
                             break
 
                     if self.closed:

@@ -83,10 +83,10 @@ class Database:
 
     def updateCategory(self, id, category, numberOfProducts, boxId):
         sql = '''update Categories
-                set categoryName = ?
-                    numberOfProducts = ?
+                set categoryName = ?,
+                    numberOfProducts = ?,
                     boxId = ?
-                    where id = ?'''
+                where id = ?'''
         connection = self.createConnection()
 
         try:
@@ -126,3 +126,15 @@ class Database:
         finally:
             if connection:
                 connection.close()
+
+    def resetCategoriesCounters(self):
+        categories = self.getCategories()
+        for c in categories:
+            self.updateCategory(c[0], c[1], 0, c[3])
+
+if __name__ == '__main__':
+    db = Database()
+
+    categories = db.getCategories()
+    for c in categories:
+        print(c)

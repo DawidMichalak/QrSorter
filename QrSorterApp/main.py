@@ -9,7 +9,7 @@ from multiprocessing import Process, Lock, Pipe
 
 if __name__ == '__main__': 
     GPIO.setmode(GPIO.BCM)
-    beltDelay = 0.003
+    beltDelay = 0.002
     sensor = LightSensor(23, threshold=0.1)
     camera = Camera()
     sorter = Sorter(camera)
