@@ -4,16 +4,17 @@ from pyzbar.pyzbar import decode, ZBarSymbol
 
 def findQRData(image) :
     #return first found qr code
-    decodedObjects = decode(image, symbols=[ZBarSymbol.QRCODE])
     try:
+        decodedObjects = decode(image, symbols=[ZBarSymbol.QRCODE])
         decoded = decodedObjects[0].data.decode('utf-8')
         return decoded
     except:
         return ''
 
-def drawQR(image, decodedObjects):
-    for decodedObject in decodedObjects:
-        points = decodedObject.polygon
+def drawQR(image):
+    decodedObjects = decode(image, symbols=[ZBarSymbol.QRCODE])
+    for decoded in decodedObjects:
+        points = decoded.polygon
         if len(points) > 4 :
             hull = cv2.convexHull(np.array([point for point in points], dtype=np.float32))
             hull = list(map(tuple, np.squeeze(hull)))
