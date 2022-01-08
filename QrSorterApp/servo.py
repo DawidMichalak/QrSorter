@@ -2,17 +2,16 @@ import RPi.GPIO as GPIO
 import time
 import numpy
 
-#Servo(19, True) - left servo
-#Servo(26, False) - right servo
+#Servo(19, ..., True, 2) - left servo
+#Servo(20, ..., False, 3) - right servo
 class Servo:    
-    def __init__(self, servoPin, boxId, flip=False):
+    def __init__(self, servoPin, boxId, flip=False, addition=3):
         self.servoPin = servoPin
-        self.openPosition = 90
-        self.closePosition = 0
+        self.openPosition = 82
+        self.closePosition = 1
         self.rezolution = 50
         self.boxId = boxId
-   
-        GPIO.setmode(GPIO.BCM)
+        self.addition = addition
         GPIO.setup(self.servoPin, GPIO.OUT)
    
         if flip:
@@ -34,7 +33,7 @@ class Servo:
         angle = numpy.linspace(self.position, newPosition, self.rezolution)
         
         for a in angle:
-            duty = a / 18 + 2
+            duty = a / 18 + self.addition
             pwm.ChangeDutyCycle(duty)
             time.sleep(1/self.rezolution)
             
@@ -42,8 +41,15 @@ class Servo:
         pwm.stop(newPosition)
         
 if __name__ == "__main__":
-    servoRight = Servo(26, 2, False)
+    servoRight = Servo(20, 2, False)
     servoRight.close()
     time.sleep(1)
     servoRight.open()
+    
+    time.sleep(1)
+    servoLeft = Servo(19, 1, True, 2)
+    servoLeft.close()
+    time.sleep(1)
+    servoLeft.open()
+    
     GPIO.cleanup()
