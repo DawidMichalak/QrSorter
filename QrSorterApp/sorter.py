@@ -35,6 +35,7 @@ class Sorter:
                             self.closed = True
                             self.servoToOpen = servo
                             self.db.updateCategory(c[0], c[1], c[2] + 1, c[3])
+                            self.categories = self.db.getCategories()
                             break
 
                     if self.closed:
