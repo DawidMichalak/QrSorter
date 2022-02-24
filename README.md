@@ -1,11 +1,13 @@
 # QrSorter
-App for sorting packages based on QR codes with web app that displays the results.
+App for sorting packages based on their QR codes with a web app that displays the results.
 
 ## Technologies
-Project is created with:
 * Python 3
 * ASP.NET Core in .NET 5
 * SQLite
+* JavaScript
+* CSS3
+* HTML5
 
 ## Setup
 To run this project first install packages from requirements.txt:
@@ -38,6 +40,14 @@ Server should start on port 54321.
 If the database doesn't exist then first run ```main.py``` to create it.
 
 ## Construction
+Conveyer belt was built using:
+* Raspberry Pi
+* webcam
+* phototransistor
+* two servomechanisms
+* stepper motor
+* laser diode
+* LEGO pieces
 
 ![Alt Text](https://github.com/DawidMichalak/QrSorter/blob/main/images/construction.jpg)
 
